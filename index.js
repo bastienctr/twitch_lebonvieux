@@ -89,6 +89,9 @@ function onMessageHandler(target, context, msg, self, conn) {
     case "!points":
       client.say(target, "Ces points? Mon gars, c'est ta nouvelle raison de vivre. Tu vivras pour avoir ces points de style. Tu seras le nouveau Barney d'New York City mon grand.")
       break;
+    case "!dev":
+      client.say(target, "T'es un dev? Tu veux participer à l'avancée de ce bot? N'hésites pas => https://github.com/bcourtar/twitch_lebonvieux !")
+      break;
   }
 
 }
