@@ -35,6 +35,12 @@ function onMessageHandler(target, context, msg, self, conn) {
   if (self)
     return;
 
+  if (msg.includes("tk") || msg.includes("thekairi") 
+    || msg.include("thekairi78") || msg.include("tk78"))
+    return client.say(target, "Dylan ne travaille plus pour TheKairi, et il n'est pas sa secrétaire"
+    + " qui plus est, alors si vous avez des questions, posez les directement aux concernés, merci!"
+    );
+
   switch (message[0]) {
     case "!addstyle":
       if (!context.mod) return;
