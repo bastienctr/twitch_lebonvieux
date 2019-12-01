@@ -21,12 +21,20 @@ r.connect({
   host: process.env.RTDB_HOST,
   port: process.env.RTDB_PORT
 }, (err, conn) => {
-  client.on(
-    'message',
-    (target, context, msg, self) => onMessageHandler(target, context, msg, self, conn)
-  );
-  client.on('connected', onConnectedHandler);
-  client.connect();
+  return r.dbList().run(conn, (err, resp) => 
+    resp.indexOf(process.env.BOT_USERNAME) != -1 ? null : r.dbCreate(process.env.BOT_USERNAME).run(conn))
+  .then(() => r.db(process.env.BOT_USERNAME).tableList().run(conn, (err, resp) => resp.indexOf("users") != -1 ? null : 
+    r.db(process.env.BOT_USERNAME).tableCreate("users").run(conn)))
+  .then(() => {
+    client.on(
+      'message',
+      (target, context, msg, self) => onMessageHandler(target, context, msg, self, conn)
+    );
+    client.on('connected', onConnectedHandler);
+    
+    return client.connect(); 
+  })
+  .catch(console.error);
 });
 
 function onMessageHandler(target, context, msg, self, conn) {
