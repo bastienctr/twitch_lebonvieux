@@ -7,15 +7,16 @@
     "start": "node -r esm index.js"
   },
   "keywords": [
-    "goume",
-    "le"
+    "twitch",
+    "dylan_del_rey",
+    "bot"
   ],
   "author": "Bastien COURTARO",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "eslint": "^6.7.2",
     "esm": "^3.2.25",
-    "fs": "0.0.1-security",
     "path": "^0.12.7",
     "rethinkdb": "^2.3.3",
     "tmi.js": "^1.5.0"
