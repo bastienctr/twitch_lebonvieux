@@ -45,7 +45,7 @@ function onMessageHandler(target, context, msg, self, conn) {
     return;
 
   if (msg.includes("tk") || msg.includes("thekairi")
-    || msg.include("thekairi78") || msg.include("tk78"))
+    || msg.includes("thekairi78") || msg.includes("tk78"))
     return client.say(target, "Dylan ne travaille plus pour TheKairi, et il n'est pas sa secrétaire"
     + " qui plus est, alors si vous avez des questions, posez les directement aux concernés, merci!"
     );
