@@ -15,6 +15,7 @@ const client = new tmi.client({
 });
 
 const rtdb_u = r.table("users");
+const rtdb_m = r.table("music");
 
 r.connect({
   db: process.env.RTDB_DB,
@@ -44,8 +45,8 @@ function onMessageHandler(target, context, msg, self, conn) {
   if (self)
     return;
 
-  if (msg.includes("tk") || msg.includes("thekairi")
-    || msg.includes("thekairi78") || msg.includes("tk78"))
+  if ((msg.includes("tk ") || msg.includes("tk?") || msg.includes("thekairi")
+    || msg.includes("thekairi78") || msg.includes("tk78")) && !msg.includes("tkt"))
     return client.say(target, "Dylan ne travaille plus pour TheKairi, et il n'est pas sa secrétaire"
     + " qui plus est, alors si vous avez des questions, posez les directement aux concernés, merci!"
     );
@@ -104,6 +105,25 @@ function onMessageHandler(target, context, msg, self, conn) {
   case "!dev":
     client.say(target, "T'es un dev? Tu veux participer à l'avancée de ce bot? "
     + " N'hésites pas => https://github.com/bcourtar/twitch_lebonvieux !");
+    break;
+  case "!yt":
+    let videoId;
+    let ampersandPosition;
+    let yTregex = RegExp(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/);
+
+    if (message[1] && yTregex.test(message[1])) {
+      videoId = message[0].split('v=')[1];
+      ampersandPosition = videoId.indexOf('&');
+
+      if(ampersandPosition != -1) {
+        videoId = videoId.substring(0, ampersandPosition);
+      }
+
+      return rtdb_m.insert({
+        videoId,
+        user: context.username
+      })
+    }
     break;
   }
 }
