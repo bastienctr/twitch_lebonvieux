@@ -112,7 +112,7 @@ function onMessageHandler(target, context, msg, self, conn) {
     let yTregex = RegExp(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/);
 
     if (message[1] && yTregex.test(message[1])) {
-      videoId = message[0].split('v=')[1];
+      videoId = message[1].split('v=')[1];
       ampersandPosition = videoId.indexOf('&');
 
       if(ampersandPosition != -1) {
@@ -122,7 +122,7 @@ function onMessageHandler(target, context, msg, self, conn) {
       return rtdb_m.insert({
         videoId,
         user: context.username
-      })
+      }).run(conn);
     }
     break;
   }
